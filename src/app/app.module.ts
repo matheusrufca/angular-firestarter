@@ -23,19 +23,21 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatButtonModule, MatCheckboxModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { HeaderComponent } from './ui-components/header/header.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MaterialModule } from './modules/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ButtonGoogleComponent } from './ui-components/social-login/button-google/button-google.component';
+import { SocialLoginComponent } from './ui-components/social-login/social-login.component';
 
 // IMPORTANT
 // Add your own project credentials to environments/*.ts
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent, ButtonGoogleComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent, ButtonGoogleComponent, SocialLoginComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
@@ -54,6 +56,7 @@ import { ButtonGoogleComponent } from './ui-components/social-login/button-googl
     }),
     BrowserAnimationsModule,
     FormsModule,
+    FlexLayoutModule,
     MaterialModule,
   ],
   bootstrap: [AppComponent]

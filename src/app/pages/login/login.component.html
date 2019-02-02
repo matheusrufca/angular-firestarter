@@ -1,22 +1,28 @@
-<mat-card class="login-container">
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form class="login-form">
-      <mat-form-field>
-        <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
-      </mat-form-field>
-    </form>
-    <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
-  </mat-card-content>
-  <mat-card-actions class="text-center">
-    <button mat-raised-button (click)="login()" color="primary">Login</button>
-    <div>or</div>
-    <btn-signin-google></btn-signin-google>
-  </mat-card-actions>
-</mat-card>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="40">
+    <mat-tab-group>
+      <mat-tab label="Login">
+        <mat-card class="login-container">
+          <mat-card-content>
+            <social-login></social-login>
+            <div class="divider">or</div>
+            <form class="login-form">
+              <mat-form-field>
+                <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+          <mat-card-actions>
+            <div fxFlex></div>
+            <a mat-raised-button (click)="login()" color="primary">Login</a>
+          </mat-card-actions>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Register">
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
