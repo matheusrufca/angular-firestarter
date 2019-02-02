@@ -14,7 +14,9 @@
     </form>
     <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions class="text-center">
     <button mat-raised-button (click)="login()" color="primary">Login</button>
+    <div>or</div>
+    <btn-signin-google></btn-signin-google>
   </mat-card-actions>
 </mat-card>

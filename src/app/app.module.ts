@@ -28,13 +28,14 @@ import { HeaderComponent } from './ui-components/header/header.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MaterialModule } from './modules/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { ButtonGoogleComponent } from './ui-components/social-login/button-google/button-google.component';
 
 // IMPORTANT
 // Add your own project credentials to environments/*.ts
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent, ButtonGoogleComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
@@ -53,7 +54,7 @@ import { FormsModule } from '@angular/forms';
     }),
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   bootstrap: [AppComponent]
 })
