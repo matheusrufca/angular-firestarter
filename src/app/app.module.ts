@@ -25,7 +25,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule, MatToolbarRow, MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { HeaderComponent } from './ui-components/header/header.component';
-import { LoginComponent } from './pages/login/login.component';
 
 // IMPORTANT
 // Add your own project credentials to environments/*.ts
@@ -39,7 +38,7 @@ const MaterialModules = [
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,

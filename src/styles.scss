@@ -1,7 +1,4 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "~materialize-social/css/materialize.css";
-@import "~materialize-social/materialize-social.css";
-
 
 // Colors
 $white: #fff !default;
@@ -29,8 +26,6 @@ sans-serif;
 body {
   font-family: $body-font;
 }
-
-
 
 .text-truncate {
   white-space: nowrap;
@@ -89,5 +84,22 @@ body {
   text-align: center;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
