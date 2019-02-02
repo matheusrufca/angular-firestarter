@@ -1,3 +1,10 @@
+.mat-tab-labels {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .login-container form {
   display: flex;
   flex-direction: column;

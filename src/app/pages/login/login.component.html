@@ -6,22 +6,51 @@
           <mat-card-content>
             <social-login></social-login>
             <div class="divider">or</div>
-            <form class="login-form">
+            <form class="login-form" [formGroup]="loginForm" (submit)="login()" id="loginForm">
               <mat-form-field>
-                <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                <input matInput placeholder="Username" name="username" type="email" required>
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+                <input matInput placeholder="Password" type="password" name="password" required>
               </mat-form-field>
             </form>
           </mat-card-content>
           <mat-card-actions>
             <div fxFlex></div>
-            <a mat-raised-button (click)="login()" color="primary">Login</a>
+            <button mat-raised-button type="submit" color="primary" form="loginForm">Login</button>
           </mat-card-actions>
         </mat-card>
       </mat-tab>
       <mat-tab label="Register">
+        <mat-card class="register-container">
+          <mat-card-content>
+            <social-login></social-login>
+            <div class="divider">or</div>
+            <form class="register-form" [formGroup]="registerForm" (submit)="register()" id="registerForm">
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+                <mat-form-field fxFlex="50">
+                  <input matInput placeholder="Name" name="text" required>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                  <input matInput placeholder="Last name" type="text" name="lastName" required>
+                </mat-form-field>
+              </div>
+              <mat-form-field>
+                <input matInput placeholder="Username" name="username" type="email" required>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Password" type="password" name="password" required>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Confirm password" type="password" name="confirmPassword" required>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+          <mat-card-actions>
+            <div fxFlex></div>
+            <button mat-raised-button type="submit" color="primary" form="registerForm">Register</button>
+          </mat-card-actions>
+        </mat-card>
       </mat-tab>
     </mat-tab-group>
   </div>
