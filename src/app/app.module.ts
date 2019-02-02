@@ -23,13 +23,23 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatToolbarModule, MatToolbarRow, MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { HeaderComponent } from './ui-components/header/header.component';
+import { LoginComponent } from './pages/login/login.component';
 
 // IMPORTANT
 // Add your own project credentials to environments/*.ts
 
+const MaterialModules = [
+  MatButtonModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatToolbarRow,
+];
+
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
@@ -38,7 +48,7 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
     UiModule,
     NotesModule,
     UploadsModule,
-    AngularFireModule.initializeApp(environment.firebase, 'firestarter'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
@@ -48,7 +58,8 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
     }),
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatToolbarModule,
   ],
   bootstrap: [AppComponent]
 })
