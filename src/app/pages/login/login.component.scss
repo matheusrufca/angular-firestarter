@@ -1,0 +1,8 @@
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container form>mat-form-field {
+  width: 100%;
+}

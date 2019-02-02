@@ -23,22 +23,18 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule, MatToolbarRow, MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatCheckboxModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { HeaderComponent } from './ui-components/header/header.component';
+import { LoginComponent } from './pages/login/login.component';
+import { MaterialModule } from './modules/material/material.module';
+import { FormsModule } from '@angular/forms';
 
 // IMPORTANT
 // Add your own project credentials to environments/*.ts
 
-const MaterialModules = [
-  MatButtonModule,
-  MatCheckboxModule,
-  MatToolbarModule,
-  MatToolbarRow,
-];
-
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
@@ -56,9 +52,8 @@ const MaterialModules = [
       enabled: environment.production
     }),
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatToolbarModule,
+    FormsModule,
+    MaterialModule
   ],
   bootstrap: [AppComponent]
 })
