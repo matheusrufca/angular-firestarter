@@ -1,43 +1,69 @@
 <div class="dragon-list-page" fxLayout="row" fxLayoutAlign="center center">
 
-  <table [hidden]="$loading" class="dragon-list-table" mat-table [dataSource]="list" fxFlex="80">
-    <!-- selection column -->
-    <ng-container matColumnDef="selection">
-      <th mat-header-cell *matHeaderCellDef class="text-center">
-        <mat-checkbox [(ngModel)]="selectAll" (change)="toggleSelectAll()"></mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let item" class="text-center">
-        <mat-checkbox [(ngModel)]="item.selected"></mat-checkbox>
-      </td>
-    </ng-container>
-    <!-- name column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let item">{{item.data.name}}</td>
-    </ng-container>
-    <!-- type column -->
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
-      <td mat-cell *matCellDef="let item" class="text-capitalize text-center">{{item.data.type}}</td>
-    </ng-container>
-    <!-- actions column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
-      <td mat-cell *matCellDef="let item" class="text-center">
+  <mat-card fxFlex="80">
+    <mat-card-title>
+      <h3>Dragons</h3>
+      <div fxFlex></div>
+      <div class="action-buttons">
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-          <button mat-mini-fab>
-            <mat-icon aria-label="Edit item">edit</mat-icon>
+          <button mat-raised-button>
+            <mat-icon aria-label="Add item">add</mat-icon>
+            <span>Add</span>
           </button>
-          <button mat-mini-fab color="warn">
+          <button mat-raised-button color="warn" [disabled]="!getSelected().length">
             <mat-icon aria-label="Remove item">delete</mat-icon>
+            <span>Remove selected</span>
           </button>
         </div>
-      </td>
-    </ng-container>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
 
-    <tr mat-header-row *matHeaderRowDef="tableCollumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: tableCollumns;"></tr>
-  </table>
+      <table [hidden]="$loading" class="dragon-list-table" mat-table [dataSource]="items">
+        <!-- selection column -->
+        <ng-container matColumnDef="selection">
+          <th mat-header-cell *matHeaderCellDef class="text-center">
+            <mat-checkbox [(ngModel)]="selectAll" (change)="toggleSelectAll()"></mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let item" class="text-center">
+            <mat-checkbox [(ngModel)]="item.selected"></mat-checkbox>
+          </td>
+        </ng-container>
+        <!-- name column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let item">{{item.data.name}}</td>
+        </ng-container>
+        <!-- type column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
+          <td mat-cell *matCellDef="let item" class="text-capitalize text-center">{{item.data.type}}</td>
+        </ng-container>
+        <!-- actions column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
+          <td mat-cell *matCellDef="let item" class="text-center">
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+              <button mat-mini-fab color="basic">
+                <mat-icon aria-label="Edit item">edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn">
+                <mat-icon aria-label="Remove item">delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableCollumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableCollumns;"></tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+  </mat-card>
+
+
 
   <div class="spinner-wrapper" fxFlex="20">
     <mat-spinner *ngIf="$loading"></mat-spinner>

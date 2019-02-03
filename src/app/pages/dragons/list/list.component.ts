@@ -18,7 +18,7 @@ const TABLE_COLLUMNS = [
 
 export class DragonListComponent implements OnInit {
   public readonly tableCollumns: string[];
-  public list: DragonTableItem[] = [];
+  public items: DragonTableItem[] = [];
   public selectAll: boolean = false;
   public $loading: boolean = false;
 
@@ -34,7 +34,7 @@ export class DragonListComponent implements OnInit {
     this.setBusy(true);
     try {
       const items = await this.dragonService.get();
-      this.list = items.map((item: Dragon) => {
+      this.items = items.map((item: Dragon) => {
         return {
           selected: false,
           data: item,
@@ -52,10 +52,14 @@ export class DragonListComponent implements OnInit {
   }
 
   toggleSelectAll() {
-    this.list.forEach((item) => item.selected = this.selectAll);
+    this.items.forEach((item) => item.selected = this.selectAll);
   }
 
   setBusy(state: boolean) {
     this.$loading = state;
+  }
+
+  getSelected() {
+    return this.items.filter((item) => item.selected);
   }
 }
