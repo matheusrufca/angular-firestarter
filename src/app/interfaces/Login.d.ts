@@ -4,8 +4,8 @@ export interface LoginModel {
   password: string;
 }
 
-export interface RegisterModel {
-  name: string;
+export interface SignUpModel {
+  firstName: string;
   lastName: string;
   email: string;
   password: string;

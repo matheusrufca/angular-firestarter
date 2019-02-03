@@ -1,3 +1,4 @@
+import { SignUpModel } from './../interfaces/Login.d';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -25,10 +26,10 @@ export class AuthService {
   user: Observable<User | null>;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router,
-    private notify: NotifyService
+    private readonly afAuth: AngularFireAuth,
+    private readonly afs: AngularFirestore,
+    private readonly router: Router,
+    private readonly notify: NotifyService
   ) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -38,12 +39,8 @@ export class AuthService {
           return of(null);
         }
       })
-      // tap(user => localStorage.setItem('user', JSON.stringify(user))),
-      // startWith(JSON.parse(localStorage.getItem('user')))
     );
   }
-
-  ////// OAuth Methods /////
 
   googleLogin() {
     const provider = new auth.GoogleAuthProvider();
@@ -65,50 +62,58 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
-  private oAuthLogin(provider: any) {
-    return this.afAuth.auth
-      .signInWithPopup(provider)
-      .then(credential => {
-        this.notify.update('Welcome to Firestarter!!!', 'success');
-        return this.updateUserData(credential.user);
-      })
-      .catch(error => this.handleError(error));
+  private async oAuthLogin(provider: any): Promise<User> {
+    let credential;
+    try {
+      credential = await this.afAuth.auth.signInWithPopup(provider);
+      this.notify.update('Welcome to Firestarter!!!', 'success');
+      await this.updateUserData(credential.user);
+    } catch (error) {
+      this.handleError(error);
+      throw error;
+    }
+    return credential.user;
   }
-
-  //// Anonymous Auth ////
 
   anonymousLogin() {
     return this.afAuth.auth
       .signInAnonymously()
       .then(credential => {
         this.notify.update('Welcome to Firestarter!!!', 'success');
-        return this.updateUserData(credential.user); // if using firestore
+        return this.updateUserData(credential.user);
       })
       .catch(error => {
         this.handleError(error);
+        throw error;
       });
   }
 
-  //// Email/Password Auth ////
-
-  emailSignUp(email: string, password: string) {
-    return this.afAuth.auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(credential => {
-        this.notify.update('Welcome new user!', 'success');
-        return this.updateUserData(credential.user); // if using firestore
-      })
-      .catch(error => this.handleError(error));
+  async emailSignUp(credentials: SignUpModel) {
+    let credential;
+    try {
+      credential = await this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
+      this.notify.update('Welcome new user!', 'success');
+      await this.updateUserData(Object.assign({}, credential.user, {
+        displayName: `${credentials.firstName} ${credentials.lastName}`
+      }));
+    } catch (error) {
+      this.handleError(error);
+      throw error;
+    }
+    return credential.user;
   }
 
-  emailLogin(email: string, password: string) {
-    return this.afAuth.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(credential => {
-        this.notify.update('Welcome back!', 'success');
-        return this.updateUserData(credential.user);
-      })
-      .catch(error => this.handleError(error));
+  async emailLogin(email: string, password: string): Promise<User> {
+    let credential;
+    try {
+      credential = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      this.notify.update('Welcome back!', 'success');
+      await this.updateUserData(credential.user);
+    } catch (error) {
+      this.handleError(error);
+      throw error;
+    }
+    return credential.user;
   }
 
   // Sends email allowing user to reset password
@@ -127,24 +132,21 @@ export class AuthService {
     });
   }
 
-  // If error, console log and notify user
   private handleError(error: Error) {
     console.error(error);
     this.notify.update(error.message, 'error');
   }
 
-  // Sets user data to firestore after succesful login
-  private updateUserData(user: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${user.uid}`
-    );
-
-    const data: User = {
+  private async updateUserData(user: User): Promise<void> {
+    const userPath = `users/${user.uid}`;
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(userPath);
+    const userData: User = {
       uid: user.uid,
-      email: user.email || null,
-      displayName: user.displayName || 'nameless user',
-      photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ'
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL || null,
     };
-    return userRef.set(data);
+
+    return await userRef.set(userData);
   }
 }

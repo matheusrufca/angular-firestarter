@@ -1,13 +1,13 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { RegisterModel } from 'src/app/interfaces/Login';
+import { SignUpModel } from 'src/app/interfaces/Login';
 
-export interface RegisterForm extends FormGroup {
-  value: RegisterModel;
+export interface SignUpForm extends FormGroup {
+  value: SignUpModel;
   controls: {
     email: AbstractControl;
     password: AbstractControl;
     confirmPassword: AbstractControl;
-    name: AbstractControl;
+    firstName: AbstractControl;
     lastName: AbstractControl;
   };
 }

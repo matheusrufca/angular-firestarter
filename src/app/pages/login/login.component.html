@@ -8,10 +8,10 @@
             <div class="divider">or</div>
             <form class="login-form" [formGroup]="loginForm" (submit)="login()" id="loginForm">
               <mat-form-field>
-                <input matInput placeholder="Username" name="username" type="email" required>
+                <input matInput formControlName="email" name="email" type="email" required placeholder="Email">
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Password" type="password" name="password" required>
+                <input matInput formControlName="password" name="password" type="password" required placeholder="Password">
               </mat-form-field>
             </form>
           </mat-card-content>
@@ -22,33 +22,33 @@
         </mat-card>
       </mat-tab>
       <mat-tab label="Register">
-        <mat-card class="register-container">
+        <mat-card class="signUp-container">
           <mat-card-content>
             <social-login></social-login>
             <div class="divider">or</div>
-            <form class="register-form" [formGroup]="registerForm" (submit)="register()" id="registerForm">
+            <form class="signUp-form" [formGroup]="signUpForm" (submit)="signUp()" id="signUpForm">
               <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
                 <mat-form-field fxFlex="50">
-                  <input matInput placeholder="Name" name="text" required>
+                  <input matInput formControlName="firstName" name="firstName" name="text" required placeholder="First Name">
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                  <input matInput placeholder="Last name" type="text" name="lastName" required>
+                  <input matInput formControlName="lastName" name="lastName" type="text" name="lastName" required placeholder="Last name">
                 </mat-form-field>
               </div>
               <mat-form-field>
-                <input matInput placeholder="Username" name="username" type="email" required>
+                <input matInput formControlName="email" name="email" type="email" name="username" type="email" required placeholder="Email">
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Password" type="password" name="password" required>
+                <input matInput formControlName="password" type="password" name="password" required placeholder="Password">
               </mat-form-field>
               <mat-form-field>
-                <input matInput placeholder="Confirm password" type="password" name="confirmPassword" required>
+                <input matInput formControlName="confirmPassword" type="password" name="confirmPassword" required placeholder="Confirm password">
               </mat-form-field>
             </form>
           </mat-card-content>
           <mat-card-actions>
             <div fxFlex></div>
-            <button mat-raised-button type="submit" color="primary" form="registerForm">Register</button>
+            <button mat-raised-button type="submit" color="primary" form="signUpForm">Sign Up</button>
           </mat-card-actions>
         </mat-card>
       </mat-tab>

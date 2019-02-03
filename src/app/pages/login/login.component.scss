@@ -5,15 +5,17 @@
   justify-content: space-around;
 }
 
-.login-container form {
-  display: flex;
-  flex-direction: column;
-}
+.login-container,
+.signUp-container {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 
-.login-container form>mat-form-field {
-  width: 100%;
+  form>mat-form-field {
+    width: 100%;
+  }
 }
-
 
 .divider {
   font-size: 1.5rem;

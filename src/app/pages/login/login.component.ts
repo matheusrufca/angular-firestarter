@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth.service';
-import { EmailValidation, PasswordValidation } from 'src/app/core/validators/validators';
-import { LoginModel } from 'src/app/interfaces/Login';
+import { EmailValidation, MustMatch, PasswordValidation } from 'src/app/core/validators/validators';
+import { SignUpModel } from './../../interfaces/Login.d';
 import { LoginForm } from './LoginForm';
-import { RegisterForm } from './RegisterForm';
+import { SignUpForm } from './SignUpFormForm';
 
 @Component({
   selector: 'login',
@@ -16,8 +16,8 @@ import { RegisterForm } from './RegisterForm';
 
 
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  registerForm: FormGroup;
+  loginForm: LoginForm;
+  signUpForm: SignUpForm;
 
   constructor(public readonly auth: AuthService, private readonly router: Router, private readonly formBuilder: FormBuilder) {
     this.loadViewForms();
@@ -27,51 +27,81 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', EmailValidation],
       password: ['', Validators.required]
-    }) ;
+    }) as LoginForm;
 
-    this.registerForm = this.formBuilder.group({
+    this.signUpForm = this.formBuilder.group({
       email: ['', EmailValidation],
       password: ['', PasswordValidation],
       confirmPassword: ['', PasswordValidation],
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-    });
+    }, {
+        validator: MustMatch('password', 'confirmPassword')
+      }) as SignUpForm;
   }
 
   ngOnInit() { }
 
-  public login(): void {
-    console.debug('login');
+  async login(): Promise<void> {
+    if (!this.loginForm.valid) return;
+    const credentials = this.loginForm.value;
+    await this.signInWithEmail(credentials.email, credentials.password);
+    console.debug('login', this.loginForm);
   }
 
-  public register(): void {
-    console.debug('register');
+  async signUp(): Promise<void> {
+    if (!this.signUpForm.valid) return;
+    const signUpModel = this.signUpForm.value;
+    await this.signUpWithEmail(signUpModel);
   }
 
-
-  async signInWithGithub(): Promise<boolean> {
-    await this.auth.githubLogin();
-    return await this.afterSignIn();
+  async signInWithEmail(username: string, password: string): Promise<void> {
+    try {
+      await this.auth.emailLogin(username, password);
+      await this.afterSignIn();
+    } catch (error) { }
   }
 
-  async signInWithGoogle(): Promise<boolean> {
-    await this.auth.googleLogin();
-    return await this.afterSignIn();
+  async signUpWithEmail(signUpModel: SignUpModel): Promise<void> {
+    try {
+      await this.auth.emailSignUp(signUpModel);
+      await this.afterSignIn();
+    } catch (error) { }
   }
 
-  async signInWithFacebook(): Promise<boolean> {
-    await this.auth.facebookLogin();
-    return await this.afterSignIn();
+  async signInWithGithub(): Promise<void> {
+    try {
+      await this.auth.githubLogin();
+      await this.afterSignIn();
+    } catch (error) { }
   }
 
-  async signInWithTwitter(): Promise<boolean> {
-    await this.auth.twitterLogin();
-    return await this.afterSignIn();
+  async signInWithGoogle(): Promise<void> {
+    try {
+      await this.auth.googleLogin();
+      await this.afterSignIn();
+    } catch (error) { }
   }
 
-  async signInAnonymously(): Promise<boolean> {
-    await this.auth.anonymousLogin();
-    return await this.afterSignIn();
+  async signInWithFacebook(): Promise<void> {
+    try {
+      await this.auth.facebookLogin();
+      await this.afterSignIn();
+    } catch (error) { }
+  }
+
+  async signInWithTwitter(): Promise<void> {
+    try {
+      await this.auth.twitterLogin();
+      await this.afterSignIn();
+    } catch (error) { }
+  }
+
+  async signInAnonymously(): Promise<void> {
+    try {
+      await this.auth.anonymousLogin();
+      await this.afterSignIn();
+    } catch (error) { }
   }
 
   private afterSignIn(): Promise<boolean> {
