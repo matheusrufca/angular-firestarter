@@ -4,7 +4,7 @@
       <mat-tab label="Login">
         <mat-card class="login-container">
           <mat-card-content>
-            <social-login></social-login>
+            <social-login (onLogin)="onSocialLogin($event)" (onLoginError)="onSocialLoginError($event)"></social-login>
             <div class="divider">or</div>
             <form class="login-form" [formGroup]="loginForm" (submit)="login()" id="loginForm">
               <mat-form-field>

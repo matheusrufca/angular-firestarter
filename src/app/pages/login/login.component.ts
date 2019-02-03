@@ -59,56 +59,64 @@ export class LoginComponent implements OnInit {
     await this.signUpWithEmail(signUpModel);
   }
 
+  onSocialLogin(result: any): void {
+    this.redirectToHome();
+  }
+
+  onSocialLoginError(result: any): void {
+    // TODO: show error notification
+  }
+
   async signInWithEmail(username: string, password: string): Promise<void> {
     try {
       await this.auth.emailLogin(username, password);
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
   async signUpWithEmail(signUpModel: SignUpModel): Promise<void> {
     try {
       await this.auth.emailSignUp(signUpModel);
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
   async signInWithGithub(): Promise<void> {
     try {
       await this.auth.githubLogin();
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
   async signInWithGoogle(): Promise<void> {
     try {
       await this.auth.googleLogin();
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
   async signInWithFacebook(): Promise<void> {
     try {
       await this.auth.facebookLogin();
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
   async signInWithTwitter(): Promise<void> {
     try {
       await this.auth.twitterLogin();
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
   async signInAnonymously(): Promise<void> {
     try {
       await this.auth.anonymousLogin();
-      await this.afterSignIn();
+      await this.redirectToHome();
     } catch (error) { }
   }
 
-  private afterSignIn(): Promise<boolean> {
+  private redirectToHome(): Promise<boolean> {
     return this.router.navigate(['/']);
   }
 }

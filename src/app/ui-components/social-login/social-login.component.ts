@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/auth.service';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { AuthService, User } from 'src/app/core/auth.service';
 import { ProviderActionMap } from './LoginProviderEnum';
 
 @Component({
@@ -10,6 +10,9 @@ import { ProviderActionMap } from './LoginProviderEnum';
 
 
 export class SocialLoginComponent implements OnInit {
+  @Output() onLogin = new EventEmitter<User>();
+  @Output() onLoginError = new EventEmitter<any>();
+
   private readonly providerAction: ProviderActionMap = {
     Google: {
       loginAction: async () => await this.auth.googleLogin()
@@ -20,13 +23,18 @@ export class SocialLoginComponent implements OnInit {
 
   ngOnInit() { }
 
-  onProviderClick($event: string): void {
-    console.debug("SocialLoginComponent:onProviderClick", $event);
-    this.signIn($event);
+  async onProviderClick($event: string): Promise<void> {
+    try {
+      throw new Error();
+      const signResult = await this.signIn($event);
+      this.onLogin.emit(signResult);
+    } catch (error) {
+      this.onLoginError.emit(error);
+    }
   }
 
-  private signIn(provider: string) {
-    this.providerAction[provider].loginAction();
+  private async signIn(provider: string): Promise<User> {
+    return await this.providerAction[provider].loginAction();
   }
 }
 
