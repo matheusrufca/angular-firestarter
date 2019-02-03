@@ -14,11 +14,13 @@
             <mat-icon aria-label="Remove item">delete</mat-icon>
             <span>Remove selected</span>
           </button>
+          <button mat-icon-button (click)="refresh()">
+            <mat-icon aria-label="Add item">refresh</mat-icon>
+          </button>
         </div>
       </div>
     </mat-card-title>
     <mat-card-content>
-
       <table [hidden]="$loading" class="dragon-list-table" mat-table [dataSource]="items">
         <!-- selection column -->
         <ng-container matColumnDef="selection">
@@ -62,8 +64,6 @@
 
     </mat-card-actions>
   </mat-card>
-
-
 
   <div class="spinner-wrapper" fxFlex="20">
     <mat-spinner *ngIf="$loading"></mat-spinner>
