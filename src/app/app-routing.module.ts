@@ -11,12 +11,11 @@ import { UploadPageComponent } from './uploads/upload-page/upload-page.component
 
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
   // { path: 'login', component: UserLoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'notes', component: NotesListComponent, canActivate: [AuthGuard] },
   { path: 'uploads', component: UploadPageComponent, canActivate: [AuthGuard] },
-
   { path: 'ssr', component: SsrPageComponent }
 ];
 

@@ -10,7 +10,7 @@ import { NotifyService } from './notify.service';
 
 
 
-interface User {
+export interface User {
   uid: string;
   email?: string | null;
   photoURL?: string;
