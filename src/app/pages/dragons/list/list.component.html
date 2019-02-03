@@ -1,3 +1,41 @@
-<p>
-  list works!
-</p>
+<div class="dragon-list-page">
+  <table class="dragon-list-table" mat-table [dataSource]="list">
+
+    <!-- selection column -->
+    <ng-container matColumnDef="selection">
+      <th mat-header-cell *matHeaderCellDef class="text-center">
+        <mat-checkbox [(ngModel)]="selectAll" (change)="toggleSelectAll()"></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let item" class="text-center">
+        <mat-checkbox [(ngModel)]="item.selected"></mat-checkbox>
+      </td>
+    </ng-container>
+    <!-- name column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let item">{{item.data.name}}</td>
+    </ng-container>
+    <!-- type column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
+      <td mat-cell *matCellDef="let item" class="text-capitalize text-center">{{item.data.type}}</td>
+    </ng-container>
+    <!-- actions column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
+      <td mat-cell *matCellDef="let item" class="text-center">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <button mat-mini-fab>
+            <mat-icon aria-label="Edit item">edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn">
+            <mat-icon aria-label="Remove item">delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableCollumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableCollumns;"></tr>
+  </table>
+</div>

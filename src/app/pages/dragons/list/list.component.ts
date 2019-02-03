@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DragonService } from '../dragon.service';
 import { Dragon } from "../Dragon";
+import { DragonService } from '../dragon.service';
+import { DragonTableItem } from './DragonTableItem';
+
+const TABLE_COLLUMNS = [
+  'selection',
+  'name',
+  'type',
+  'actions',
+];
 
 @Component({
   selector: 'dragon-list',
@@ -9,15 +17,29 @@ import { Dragon } from "../Dragon";
 })
 
 export class DragonListComponent implements OnInit {
-  public list: Dragon[] = [];
-  constructor(private readonly dragonService: DragonService) { }
+  public readonly tableCollumns: string[];
+  public list: DragonTableItem[] = [];
+  public selectAll: boolean = false;
+
+  constructor(private readonly dragonService: DragonService) {
+    this.tableCollumns = TABLE_COLLUMNS;
+  }
 
   ngOnInit() {
     this.loadDragons();
   }
 
   private async loadDragons(): Promise<void> {
-    this.list = await this.dragonService.get();
-    console.debug("dragonList", this.list)
+    const items = await this.dragonService.get();
+    this.list = items.map((item: Dragon) => {
+      return {
+        selected: false,
+        data: item,
+      }
+    });
+  }
+
+  toggleSelectAll() {
+    this.list.forEach((item) => item.selected = this.selectAll);
   }
 }
