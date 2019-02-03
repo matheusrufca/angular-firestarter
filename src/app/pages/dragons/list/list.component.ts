@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Dragon } from "../Dragon";
 import { DragonService } from '../dragon.service';
+import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { DragonTableItem } from './DragonTableItem';
-import { MatDialog } from '@angular/material';
 import { RemoveConfirmationDialogComponent } from './remove-confirmation-dialog/remove-confirmation-dialog.component';
 
 const TABLE_COLLUMNS = [
@@ -28,8 +29,36 @@ export class DragonListComponent implements OnInit {
     this.tableCollumns = TABLE_COLLUMNS;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadDragons();
+  }
+
+  refresh(): void {
+    this.loadDragons();
+  }
+
+  toggleSelectAll(): void {
+    this.items.forEach((item) => item.selected = this.selectAll);
+  }
+
+  setBusy(state: boolean): void {
+    this.$loading = state;
+  }
+
+  addItem(): void {
+    this.showCreateDragonDialog();
+  }
+
+  confirmRemoveItem(item: DragonTableItem): void {
+    this.showRemoveConfirmationDialog(item);
+  }
+
+  confirmRemoveSelected(item: DragonTableItem): void {
+    this.showRemoveConfirmationDialog();
+  }
+
+  getSelected(): DragonTableItem[] {
+    return this.items.filter((item) => item.selected);
   }
 
   private async loadDragons(): Promise<void> {
@@ -49,34 +78,16 @@ export class DragonListComponent implements OnInit {
     }
   }
 
-  refresh() {
-    this.loadDragons();
+  private showCreateDragonDialog(): void {
+    const dialogInstance = this.showDialog(CreateDialogComponent);
+    dialogInstance.afterClosed().subscribe(result => {
+      if (result) {
+        this.refresh();
+      }
+    });
   }
 
-  toggleSelectAll() {
-    this.items.forEach((item) => item.selected = this.selectAll);
-  }
-
-  setBusy(state: boolean) {
-    this.$loading = state;
-  }
-
-  getSelected() {
-    return this.items.filter((item) => item.selected);
-  }
-
-  addItem() { }
-
-
-  confirmRemoveItem(item: DragonTableItem) {
-    this.showRemoveConfirmationDialog(item);
-  }
-
-  confirmRemoveSelected(item: DragonTableItem) {
-    this.showRemoveConfirmationDialog();
-  }
-
-  private showRemoveConfirmationDialog(item?: DragonTableItem) {
+  private showRemoveConfirmationDialog(item?: DragonTableItem): void {
     const data = item ? item : undefined;
     const dialogInstance = this.showDialog(RemoveConfirmationDialogComponent, data);
 

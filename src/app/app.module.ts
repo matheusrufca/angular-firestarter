@@ -24,7 +24,8 @@ import { UiModule } from './ui/ui.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { DragonListComponent } from './pages/dragons/list/list.component';
 import { HomeComponent } from './pages/home/home.component';
-import { RemoveConfirmationDialogComponent } from './pages/dragons/list/remove-confirmation-dialog/remove-confirmation-dialog.component';
+import { RemoveConfirmationDialogComponent as RemoveDragonConfirmationDialogComponent } from './pages/dragons/list/remove-confirmation-dialog/remove-confirmation-dialog.component';
+import { CreateDialogComponent as CreateDragonDialogComponent } from './pages/dragons/list/create-dialog/create-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,10 @@ import { RemoveConfirmationDialogComponent } from './pages/dragons/list/remove-c
     SocialLoginComponent,
     DragonListComponent,
     HomeComponent,
-    RemoveConfirmationDialogComponent
+    RemoveDragonConfirmationDialogComponent,
+    CreateDragonDialogComponent
   ],
-  entryComponents: [RemoveConfirmationDialogComponent],
+  entryComponents: [RemoveDragonConfirmationDialogComponent, CreateDragonDialogComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
