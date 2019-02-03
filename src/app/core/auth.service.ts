@@ -94,9 +94,9 @@ export class AuthService {
   async emailLogin(email: string, password: string): Promise<User> {
     let credential;
     try {
+      debugger;
       credential = await this.angularFireAuth.auth.signInWithEmailAndPassword(email, password);
       this.notify.update('Welcome back!', 'success');
-      await this.updateUserData(credential.user);
     } catch (error) {
       this.handleError(error);
       throw error;

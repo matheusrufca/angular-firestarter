@@ -3,15 +3,20 @@
     <a mat-button routerLink="/customer-list" routerLinkActive="active">Customers</a>
     <a mat-button routerLink="/customer-create">Create Customer</a>
 
+    <div fxFlex></div>
 
     <a mat-button routerLink="/login" *ngIf="!user">Login</a>
-    <button mat-raised-button (click)="logout()" *ngIf="user">
-      <span>Logout</span>
-    </button>
 
-    <!-- <a mat-raised-button *ngIf="auth.user | async as user">
-      <mat-icon>mic</mat-icon>
-      <span>Login</span>
-    </a> -->
+
+
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="profileMenu" *ngIf="user">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <ngx-avatar src="{{getProfilePicture()}}" size="30"></ngx-avatar>
+        <span>{{user.displayName}}</span>
+      </div>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>

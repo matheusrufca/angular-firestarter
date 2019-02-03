@@ -10,6 +10,7 @@ import { User } from 'firebase';
 })
 export class HeaderComponent implements OnInit {
   public user: User;
+  private readonly avatarPlaceholder = "../../../assets/images/profile-pic-placeholder.png";
 
   constructor(private readonly auth: AuthService, private readonly router: Router) { }
   ngOnInit(): void {
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  async logout() {
+  async logout(): Promise<void> {
     try {
       await this.auth.signOut();
     } catch (error) {
@@ -27,5 +28,9 @@ export class HeaderComponent implements OnInit {
     } finally {
       this.router.navigate(['/login']);
     }
+  }
+
+  getProfilePicture(): string {
+    return this.user.photoURL || this.avatarPlaceholder;
   }
 }

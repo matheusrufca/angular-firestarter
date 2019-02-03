@@ -1,36 +1,32 @@
-import {
-  BrowserModule,
-  BrowserTransferStateModule
-} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { AvatarModule } from 'ngx-avatar';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-
-// Firestarter App Modules
 import { CoreModule } from './core/core.module';
-import { UploadsModule } from './uploads/uploads.module';
-import { UiModule } from './ui/ui.module';
-import { NotesModule } from './notes/notes.module';
-
-// @angular/fire/ Modules
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireFunctionsModule } from '@angular/fire/functions';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { HeaderComponent } from './ui-components/header/header.component';
-import { LoginComponent } from './pages/login/login.component';
 import { MaterialModule } from './modules/material/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { NotesModule } from './notes/notes.module';
+import { LoginComponent } from './pages/login/login.component';
+import { HeaderComponent } from './ui-components/header/header.component';
 import { ButtonGoogleComponent } from './ui-components/social-login/button-google/button-google.component';
 import { SocialLoginComponent } from './ui-components/social-login/social-login.component';
+import { UiModule } from './ui/ui.module';
+import { UploadsModule } from './uploads/uploads.module';
+
+
+
+
+
 
 // IMPORTANT
 // Add your own project credentials to environments/*.ts
@@ -59,6 +55,7 @@ import { SocialLoginComponent } from './ui-components/social-login/social-login.
     ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
+    AvatarModule,
   ],
   bootstrap: [AppComponent]
 })
