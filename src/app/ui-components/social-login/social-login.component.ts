@@ -25,7 +25,6 @@ export class SocialLoginComponent implements OnInit {
 
   async onProviderClick($event: string): Promise<void> {
     try {
-      throw new Error();
       const signResult = await this.signIn($event);
       this.onLogin.emit(signResult);
     } catch (error) {
