@@ -1,6 +1,6 @@
-<div class="dragon-list-page">
-  <table class="dragon-list-table" mat-table [dataSource]="list">
+<div class="dragon-list-page" fxLayout="row" fxLayoutAlign="center center">
 
+  <table [hidden]="$loading" class="dragon-list-table" mat-table [dataSource]="list" fxFlex="80">
     <!-- selection column -->
     <ng-container matColumnDef="selection">
       <th mat-header-cell *matHeaderCellDef class="text-center">
@@ -38,4 +38,8 @@
     <tr mat-header-row *matHeaderRowDef="tableCollumns"></tr>
     <tr mat-row *matRowDef="let row; columns: tableCollumns;"></tr>
   </table>
+
+  <div class="spinner-wrapper" fxFlex="20">
+    <mat-spinner *ngIf="$loading"></mat-spinner>
+  </div>
 </div>
