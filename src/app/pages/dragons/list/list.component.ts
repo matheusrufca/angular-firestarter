@@ -33,8 +33,8 @@ export class DragonListComponent implements OnInit {
     this.loadDragons();
   }
 
-  refresh(): void {
-    this.loadDragons();
+  async refresh(): Promise<void> {
+    await this.loadDragons();
   }
 
   toggleSelectAll(): void {
@@ -47,6 +47,15 @@ export class DragonListComponent implements OnInit {
 
   addItem(): void {
     this.showCreateDragonDialog();
+  }
+
+  async removeItem(item: DragonTableItem) {
+    try {
+      const result = await this.dragonService.delete(item.data.id);
+      console.debug(result);
+    } catch (error) {
+      throw error;
+    }
   }
 
   confirmRemoveItem(item: DragonTableItem): void {
@@ -82,7 +91,7 @@ export class DragonListComponent implements OnInit {
     const dialogInstance = this.showDialog(CreateDialogComponent);
     dialogInstance.afterClosed().subscribe(result => {
       if (result) {
-        this.refresh();
+
       }
     });
   }
@@ -91,11 +100,30 @@ export class DragonListComponent implements OnInit {
     const data = item ? item : undefined;
     const dialogInstance = this.showDialog(RemoveConfirmationDialogComponent, data);
 
-    dialogInstance.afterClosed().subscribe(result => {
-      if (result) {
-        this.refresh();
+    dialogInstance.afterClosed().subscribe(async (result) => await this.onCloseRemoveConfirmation(result, item));
+  }
+
+  private async onCloseRemoveConfirmation(result: any, item?: DragonTableItem): Promise<void> {
+    if (result) {
+      this.setBusy(true);
+      try {
+        if (item) {
+          await this.removeItem(item);
+        } else {
+          await this.removeSelectedItems();
+        }
+        await this.refresh();
+      } catch (error) { }
+      finally {
+        this.setBusy(false);
       }
-    });
+    }
+  }
+
+  private async removeSelectedItems(): Promise<any[]> {
+    const items = this.getSelected();
+    const removePromises = items.map((item) => this.removeItem(item));
+    return await Promise.all(removePromises);
   }
 
   private showDialog(dialogComponent: any, settings?: any) {

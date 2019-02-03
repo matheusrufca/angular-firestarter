@@ -23,6 +23,11 @@ export class DragonService {
     const dragon = await result.toPromise<Dragon>();
     return this.dragonMapper.fromJSON(dragon);
   }
+
+  async delete(id: string): Promise<any> {
+    const result = this.apiService.delete(this.ENTITY_NAME, id);
+    return await result.toPromise();
+  }
 }
 
 class DragonMapper {

@@ -20,4 +20,8 @@ export class ApiService {
     return this.httpClient.get(apiEndpoint);
   }
 
+  delete(entityName: string, id: string): Observable<any> {
+    const apiEndpoint = `${this.API_URL}/${entityName}/${id}`;
+    return this.httpClient.delete(apiEndpoint);
+  }
 }
