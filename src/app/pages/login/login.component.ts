@@ -44,8 +44,12 @@ export class LoginComponent implements OnInit {
 
   async login(): Promise<void> {
     if (!this.loginForm.valid) return;
-    const credentials = this.loginForm.value;
-    await this.signInWithEmail(credentials.email, credentials.password);
+    try {
+      const credentials = this.loginForm.value;
+      await this.signInWithEmail(credentials.email, credentials.password);
+    } catch (error) {
+      throw error;
+    }
     console.debug('login', this.loginForm);
   }
 
