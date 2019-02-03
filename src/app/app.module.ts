@@ -24,9 +24,20 @@ import { UiModule } from './ui/ui.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { DragonListComponent } from './pages/dragons/list/list.component';
 import { HomeComponent } from './pages/home/home.component';
+import { RemoveConfirmationDialogComponent } from './pages/dragons/list/remove-confirmation-dialog/remove-confirmation-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent, ButtonGoogleComponent, SocialLoginComponent, DragonListComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    LoginComponent,
+    ButtonGoogleComponent,
+    SocialLoginComponent,
+    DragonListComponent,
+    HomeComponent,
+    RemoveConfirmationDialogComponent
+  ],
+  entryComponents: [RemoveConfirmationDialogComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,

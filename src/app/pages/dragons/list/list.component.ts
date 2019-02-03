@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Dragon } from "../Dragon";
 import { DragonService } from '../dragon.service';
 import { DragonTableItem } from './DragonTableItem';
+import { MatDialog } from '@angular/material';
+import { RemoveConfirmationDialogComponent } from './remove-confirmation-dialog/remove-confirmation-dialog.component';
 
 const TABLE_COLLUMNS = [
   'selection',
@@ -22,7 +24,7 @@ export class DragonListComponent implements OnInit {
   public selectAll: boolean = false;
   public $loading: boolean = false;
 
-  constructor(private readonly dragonService: DragonService) {
+  constructor(private readonly dragonService: DragonService, public dialog: MatDialog) {
     this.tableCollumns = TABLE_COLLUMNS;
   }
 
@@ -61,5 +63,33 @@ export class DragonListComponent implements OnInit {
 
   getSelected() {
     return this.items.filter((item) => item.selected);
+  }
+
+  addItem() { }
+
+
+  confirmRemoveItem(item: DragonTableItem) {
+    this.showRemoveConfirmationDialog(item);
+  }
+
+  confirmRemoveSelected(item: DragonTableItem) {
+    this.showRemoveConfirmationDialog();
+  }
+
+  private showRemoveConfirmationDialog(item?: DragonTableItem) {
+    const data = item ? item : undefined;
+    const dialogInstance = this.showDialog(RemoveConfirmationDialogComponent, data);
+
+    dialogInstance.afterClosed().subscribe(result => {
+      if (result) {
+        this.refresh();
+      }
+    });
+  }
+
+  private showDialog(dialogComponent: any, settings?: any) {
+    const dialogSettings = Object.assign({}, settings || undefined);
+
+    return this.dialog.open(dialogComponent, dialogSettings);;
   }
 }
