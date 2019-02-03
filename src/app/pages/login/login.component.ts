@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   loginForm: LoginForm;
   signUpForm: SignUpForm;
 
-  constructor(public readonly auth: AuthService, private readonly router: Router, private readonly formBuilder: FormBuilder) {
+  constructor(private readonly auth: AuthService, private readonly router: Router, private readonly formBuilder: FormBuilder) {
     this.loadViewForms();
   }
 

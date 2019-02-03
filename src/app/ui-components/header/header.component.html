@@ -2,6 +2,16 @@
   <mat-toolbar-row>
     <a mat-button routerLink="/customer-list" routerLinkActive="active">Customers</a>
     <a mat-button routerLink="/customer-create">Create Customer</a>
-    <a mat-button routerLink="/login">Login</a>
+
+
+    <a mat-button routerLink="/login" *ngIf="!user">Login</a>
+    <button mat-raised-button (click)="logout()" *ngIf="user">
+      <span>Logout</span>
+    </button>
+
+    <!-- <a mat-raised-button *ngIf="auth.user | async as user">
+      <mat-icon>mic</mat-icon>
+      <span>Login</span>
+    </a> -->
   </mat-toolbar-row>
 </mat-toolbar>
