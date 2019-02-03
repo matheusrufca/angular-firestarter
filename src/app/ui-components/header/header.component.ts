@@ -14,10 +14,11 @@ export class HeaderComponent implements OnInit {
 
   constructor(private readonly auth: AuthService, private readonly router: Router) { }
   ngOnInit(): void {
-    this.auth.user.subscribe((user: User) => {
-      console.debug("user", user);
-      this.user = user;
-    });
+    this.auth.user.subscribe((user: User) => this.setUser(user));
+  }
+
+  private setUser(user: User): void {
+    this.user = user || null;
   }
 
   async logout(): Promise<void> {

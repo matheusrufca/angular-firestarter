@@ -22,18 +22,11 @@ import { ButtonGoogleComponent } from './ui-components/social-login/button-googl
 import { SocialLoginComponent } from './ui-components/social-login/social-login.component';
 import { UiModule } from './ui/ui.module';
 import { UploadsModule } from './uploads/uploads.module';
-
-
-
-
-
-
-// IMPORTANT
-// Add your own project credentials to environments/*.ts
-
+import { DragonListComponent } from './pages/dragons/list/list.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoginComponent, ButtonGoogleComponent, SocialLoginComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent, ButtonGoogleComponent, SocialLoginComponent, DragonListComponent, HomeComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
