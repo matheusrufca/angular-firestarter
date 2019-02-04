@@ -20,6 +20,8 @@ const DRAGONS_TYPES = Object.freeze([
   "Cockatrice",
 ]);
 
+const AVAILABLE_STORIES = Object.freeze(["Other"]);
+
 @Component({
   selector: 'edit.dragon',
   templateUrl: './edit.dragon.component.html',
@@ -34,7 +36,7 @@ export class EditDragonComponent implements OnInit {
   };
   public dragonForm: DragonForm;
   public dragonTypeOptions = DRAGONS_TYPES;
-  public availableHistories = ["Other"];
+  public availableHistories = Array.from(AVAILABLE_STORIES);
 
   constructor(
     private readonly router: Router, private readonly activatedRoute: ActivatedRoute,
@@ -43,7 +45,6 @@ export class EditDragonComponent implements OnInit {
   ) {
     this.loadForm();
     this.activatedRoute.paramMap.subscribe((params) => {
-      debugger;
       this.loadDragon(params.get("id"));
     });
   }
@@ -95,7 +96,7 @@ export class EditDragonComponent implements OnInit {
     this.dragonForm = this.formBuilder.group({
       name: ['', Validators.required],
       type: ['', Validators.required],
-      histories: ['Other', Validators.required]
+      histories: ['Other']
     }) as DragonForm;
   }
 
@@ -103,8 +104,10 @@ export class EditDragonComponent implements OnInit {
     if (!id) return;
     this.setBusy(true);
     try {
+
+      debugger;
       this.dragon = await this.dragonService.getDetail(id);
-      this.availableHistories = this.dragon.histories.concat("Other");
+      this.availableHistories = Array.from(new Set(this.dragon.histories.concat(AVAILABLE_STORIES)));
     } catch (error) {
       // TODO: handle error
       console.log(error);
@@ -116,12 +119,6 @@ export class EditDragonComponent implements OnInit {
   private setBusy(state: boolean): void {
     this.$loading = state;
   }
-
-
-
-
-
-
 }
 
 
