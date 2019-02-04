@@ -16,22 +16,14 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private notify: NotifyService
   ) { }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.user.pipe(
-      take(1),
-      map(user => !!user),
-      tap(loggedIn => {
-        const currentPage = this.router.url;
-        if (loggedIn && (currentPage == "/login")) {
-          this.router.navigate(['']);
-        } else if (!loggedIn) {
-          this.notify.update('You must be logged in!', 'error');
-          this.router.navigate(['/login']);
-        }
-      })
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.auth.user.pipe(take(1), map(user => !!user), tap(loggedIn => {
+      const currentPage = this.router.url;
+      if (!loggedIn) {
+        this.notify.update('You must be logged in!', 'error');
+        this.router.navigate(['/login']);
+      }
+    })
     );
   }
 }

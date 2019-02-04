@@ -1,14 +1,8 @@
 <mat-toolbar color="primary" class="fixed-header">
   <mat-toolbar-row>
-    <a mat-button routerLink="/customer-list" routerLinkActive="active">Customers</a>
-    <a mat-button routerLink="/customer-create">Create Customer</a>
-
+    <a mat-button routerLink="/" routerLinkActive="active">Dashboard</a>
     <div fxFlex></div>
-
     <a mat-button routerLink="/login" *ngIf="!user">Login</a>
-
-
-
     <button mat-raised-button color="primary" [matMenuTriggerFor]="profileMenu" *ngIf="user">
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
         <ngx-avatar src="{{getProfilePicture()}}" size="30"></ngx-avatar>
