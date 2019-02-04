@@ -22,10 +22,11 @@ import { ButtonGoogleComponent } from './ui-components/social-login/button-googl
 import { SocialLoginComponent } from './ui-components/social-login/social-login.component';
 import { UiModule } from './ui/ui.module';
 import { UploadsModule } from './uploads/uploads.module';
-import { DragonListComponent } from './pages/dragons/list/list.component';
+import { ListDragonComponent } from './pages/dragons/list/list.dragon.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RemoveConfirmationDialogComponent as RemoveDragonConfirmationDialogComponent } from './pages/dragons/list/remove-confirmation-dialog/remove-confirmation-dialog.component';
 import { CreateDialogComponent as CreateDragonDialogComponent } from './pages/dragons/list/create-dialog/create-dialog.component';
+import { EditDragonComponent } from './pages/dragons/edit/edit.dragon.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +35,11 @@ import { CreateDialogComponent as CreateDragonDialogComponent } from './pages/dr
     LoginComponent,
     ButtonGoogleComponent,
     SocialLoginComponent,
-    DragonListComponent,
+    ListDragonComponent,
     HomeComponent,
     RemoveDragonConfirmationDialogComponent,
-    CreateDragonDialogComponent
+    CreateDragonDialogComponent,
+    EditDragonComponent
   ],
   entryComponents: [RemoveDragonConfirmationDialogComponent, CreateDragonDialogComponent],
   imports: [

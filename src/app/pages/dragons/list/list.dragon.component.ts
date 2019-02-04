@@ -15,11 +15,11 @@ const TABLE_COLLUMNS = [
 
 @Component({
   selector: 'dragon-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  templateUrl: './list.dragon.component.html',
+  styleUrls: ['./list.dragon.component.scss']
 })
 
-export class DragonListComponent implements OnInit {
+export class ListDragonComponent implements OnInit {
   public readonly tableCollumns: string[];
   public items: DragonTableItem[] = [];
   public selectAll: boolean = false;
