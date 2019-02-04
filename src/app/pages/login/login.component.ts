@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth.service';
+import { NotifyService } from 'src/app/core/notify.service';
 import { EmailValidation, MustMatch, PasswordValidation } from 'src/app/core/validators/validators';
 import { SignUpModel } from './../../interfaces/Login.d';
 import { LoginForm } from './LoginForm';
@@ -14,27 +15,25 @@ import { SignUpForm } from './SignUpFormForm';
   encapsulation: ViewEncapsulation.None
 })
 
-
 export class LoginComponent implements OnInit {
   loginForm: LoginForm;
   signUpForm: SignUpForm;
 
-  constructor(private readonly auth: AuthService, private readonly router: Router, private readonly formBuilder: FormBuilder) {
+  constructor(
+    private readonly auth: AuthService,
+    private readonly router: Router,
+    private readonly formBuilder: FormBuilder,
+    private readonly notificationService: NotifyService
+  ) {
     this.loadViewForms();
   }
 
   ngOnInit() { }
 
-
   async login(): Promise<void> {
     if (!this.loginForm.valid) return;
-    try {
-      const credentials = this.loginForm.value;
-      await this.signInWithEmail(credentials.email, credentials.password);
-    } catch (error) {
-      throw error;
-    }
-    console.debug('login', this.loginForm);
+    const credentials = this.loginForm.value;
+    await this.signInWithEmail(credentials.email, credentials.password);
   }
 
   async signUp(): Promise<void> {
@@ -47,57 +46,19 @@ export class LoginComponent implements OnInit {
     this.redirectToHome();
   }
 
-  onSocialLoginError(result: any): void {
-    // TODO: show error notification
-  }
-
   async signInWithEmail(username: string, password: string): Promise<void> {
-    try {
-      await this.auth.emailLogin(username, password);
-      await this.redirectToHome();
-    } catch (error) { }
+    await this.auth.emailLogin(username, password);
+    await this.redirectToHome();
   }
 
   async signUpWithEmail(signUpModel: SignUpModel): Promise<void> {
-    try {
-      await this.auth.emailSignUp(signUpModel);
-      await this.redirectToHome();
-    } catch (error) { }
-  }
-
-  async signInWithGithub(): Promise<void> {
-    try {
-      await this.auth.githubLogin();
-      await this.redirectToHome();
-    } catch (error) { }
+    await this.auth.emailSignUp(signUpModel);
+    await this.redirectToHome();
   }
 
   async signInWithGoogle(): Promise<void> {
-    try {
-      await this.auth.googleLogin();
-      await this.redirectToHome();
-    } catch (error) { }
-  }
-
-  async signInWithFacebook(): Promise<void> {
-    try {
-      await this.auth.facebookLogin();
-      await this.redirectToHome();
-    } catch (error) { }
-  }
-
-  async signInWithTwitter(): Promise<void> {
-    try {
-      await this.auth.twitterLogin();
-      await this.redirectToHome();
-    } catch (error) { }
-  }
-
-  async signInAnonymously(): Promise<void> {
-    try {
-      await this.auth.anonymousLogin();
-      await this.redirectToHome();
-    } catch (error) { }
+    await this.auth.googleLogin();
+    await this.redirectToHome();
   }
 
   private loadViewForms() {

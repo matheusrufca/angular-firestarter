@@ -27,7 +27,7 @@ export class AuthService {
     private readonly angularFireAuth: AngularFireAuth,
     private readonly anguarlFirestore: AngularFirestore,
     private readonly router: Router,
-    private readonly notify: NotifyService
+    private readonly notificationService: NotifyService
   ) {
     this.user = this.angularFireAuth.authState.pipe(
       switchMap(user => {
@@ -67,26 +67,20 @@ export class AuthService {
     return this.angularFireAuth.auth
       .signInAnonymously()
       .then(credential => {
-        this.notify.update('Welcome to Firestarter!!!', 'success');
         return this.updateUserData(credential.user);
       })
-      .catch(error => {
-        this.handleError(error);
-        throw error;
-      });
+      .catch(error => this.handleError(error));
   }
 
   async emailSignUp(credentials: SignUpModel) {
     let credential;
     try {
       credential = await this.angularFireAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
-      this.notify.update('Welcome new user!', 'success');
       await this.updateUserData(Object.assign({}, credential.user, {
         displayName: `${credentials.firstName} ${credentials.lastName}`
       }));
     } catch (error) {
       this.handleError(error);
-      throw error;
     }
     return credential.user;
   }
@@ -96,10 +90,8 @@ export class AuthService {
     try {
       debugger;
       credential = await this.angularFireAuth.auth.signInWithEmailAndPassword(email, password);
-      this.notify.update('Welcome back!', 'success');
     } catch (error) {
       this.handleError(error);
-      throw error;
     }
     return credential.user;
   }
@@ -109,7 +101,6 @@ export class AuthService {
 
     return fbAuth
       .sendPasswordResetEmail(email)
-      .then(() => this.notify.update('Password update email sent', 'info'))
       .catch(error => this.handleError(error));
   }
 
@@ -122,7 +113,7 @@ export class AuthService {
       await this.angularFireAuth.auth.signOut();
       this.router.navigate(['/']);
     } catch (error) {
-      throw error;
+      this.handleError(error);
     }
   }
 
@@ -130,18 +121,15 @@ export class AuthService {
     let credential;
     try {
       credential = await this.angularFireAuth.auth.signInWithPopup(provider);
-      this.notify.update('Welcome to Firestarter!!!', 'success');
       await this.updateUserData(credential.user);
     } catch (error) {
       this.handleError(error);
-      throw error;
     }
     return credential.user;
   }
 
   private handleError(error: Error) {
-    console.error(error);
-    this.notify.update(error.message, 'error');
+    this.notificationService.notify(error.message, 'Error');
   }
 
   private async updateUserData(user: User): Promise<void> {

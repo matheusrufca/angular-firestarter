@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 /// Notify users about errors and other helpful stuff
 export interface Msg {
@@ -10,6 +11,13 @@ export interface Msg {
 
 @Injectable()
 export class NotifyService {
+  constructor(private readonly snackBar: MatSnackBar) { }
+
+  notify(message: string, action?: string, settings?: any) {
+    settings = Object.assign({ duration: 4000, }, settings || undefined)
+    return this.snackBar.open(message, action, settings);
+  }
+
 
   private _msgSource = new Subject<Msg | null>();
 
