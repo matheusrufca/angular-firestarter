@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/firestarter",
+    "public": "dist/sicredi-dragons",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "firestarter": {
+    "sicredi-dragons": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/firestarter",
+            "outputPath": "dist/sicredi-dragons",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -55,18 +55,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "firestarter:build"
+            "browserTarget": "sicredi-dragons:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "firestarter:build:production"
+              "browserTarget": "sicredi-dragons:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "firestarter:build"
+            "browserTarget": "sicredi-dragons:build"
           }
         },
         "test": {
@@ -105,14 +105,14 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/firestarter-server",
+            "outputPath": "dist/sicredi-dragons-server",
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json"
           }
         }
       }
     },
-    "firestarter-e2e": {
+    "sicredi-dragons-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -120,7 +120,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "firestarter:serve"
+            "devServerTarget": "sicredi-dragons:serve"
           }
         },
         "lint": {
@@ -135,5 +135,5 @@
       }
     }
   },
-  "defaultProject": "firestarter"
+  "defaultProject": "sicredi-dragons"
 }
