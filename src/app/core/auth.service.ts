@@ -22,9 +22,8 @@ export class AuthService {
   user: Observable<User | null>;
   authState: firebase.User;
 
-
   constructor(
-    private readonly angularFireAuth: AngularFireAuth,
+    public readonly angularFireAuth: AngularFireAuth,
     private readonly anguarlFirestore: AngularFirestore,
     private readonly router: Router,
     private readonly notificationService: NotifyService
@@ -81,6 +80,7 @@ export class AuthService {
       }));
     } catch (error) {
       this.handleError(error);
+      throw error;
     }
     return credential.user;
   }
@@ -91,6 +91,7 @@ export class AuthService {
       credential = await this.angularFireAuth.auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
       this.handleError(error);
+      throw error;
     }
     return credential.user;
   }
@@ -113,6 +114,7 @@ export class AuthService {
       this.router.navigate(['/']);
     } catch (error) {
       this.handleError(error);
+      throw error;
     }
   }
 
@@ -123,6 +125,7 @@ export class AuthService {
       await this.updateUserData(credential.user);
     } catch (error) {
       this.handleError(error);
+      throw error;
     }
     return credential.user;
   }

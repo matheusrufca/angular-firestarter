@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
-import { PublicGuard } from './core/public.guard';
 import { EditDragonComponent } from './pages/dragons/edit/edit.dragon.component';
 import { ListDragonComponent } from './pages/dragons/list/list.dragon.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-
-
-
+import { PublicGuard } from './core/public.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },

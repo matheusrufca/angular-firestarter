@@ -18,11 +18,11 @@ export class AuthGuard implements CanActivate {
   ) { }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.auth.user.pipe(take(1), map(user => !!user), tap(loggedIn => {
+      const currentPage = next.routeConfig.path;
       if (!loggedIn) {
-        this.notificationService.notify('You must be logged in!', 'error');
+        this.notificationService.notify('You must be logged in!', 'Error');
         this.router.navigate(['/login']);
       }
-    })
-    );
+    }));
   }
 }

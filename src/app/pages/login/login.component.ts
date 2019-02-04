@@ -47,18 +47,30 @@ export class LoginComponent implements OnInit {
   }
 
   async signInWithEmail(username: string, password: string): Promise<void> {
-    await this.auth.emailLogin(username, password);
-    await this.redirectToHome();
+    try {
+      await this.auth.emailLogin(username, password);
+      await this.redirectToHome();
+    } catch (error) {
+      throw error;
+    }
   }
 
   async signUpWithEmail(signUpModel: SignUpModel): Promise<void> {
-    await this.auth.emailSignUp(signUpModel);
-    await this.redirectToHome();
+    try {
+      await this.auth.emailSignUp(signUpModel);
+      await this.redirectToHome();
+    } catch (error) {
+      throw error;
+    }
   }
 
   async signInWithGoogle(): Promise<void> {
-    await this.auth.googleLogin();
-    await this.redirectToHome();
+    try {
+      await this.auth.googleLogin();
+      await this.redirectToHome();
+    } catch (error) {
+      throw error;
+    }
   }
 
   private loadViewForms() {
