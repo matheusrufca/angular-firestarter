@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, Sort } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Dragon } from "../Dragon";
 import { DragonService } from '../dragon.service';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
@@ -21,8 +21,10 @@ const TABLE_COLLUMNS = [
 })
 
 export class ListDragonComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   public readonly tableColumns: string[];
-  public items: DragonTableItem[] = [];
+  public items: MatTableDataSource<DragonTableItem> = new MatTableDataSource<DragonTableItem>([]);
   public selectAll: boolean = false;
   public $loading: boolean = false;
 
@@ -31,6 +33,7 @@ export class ListDragonComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.items.paginator = this.paginator;
     this.loadDragons();
   }
 
@@ -39,7 +42,7 @@ export class ListDragonComponent implements OnInit {
   }
 
   toggleSelectAll(): void {
-    this.items.forEach((item) => item.selected = this.selectAll);
+    this.items.data.forEach((item) => item.selected = this.selectAll);
   }
 
   setBusy(state: boolean): void {
@@ -68,14 +71,14 @@ export class ListDragonComponent implements OnInit {
   }
 
   getSelected(): DragonTableItem[] {
-    return this.items.filter((item) => item.selected);
+    return this.items.data.filter((item) => item.selected);
   }
 
   private async loadDragons(): Promise<void> {
     this.setBusy(true);
     try {
-      const items = await this.dragonService.get();
-      this.items = items
+      const dragons = await this.dragonService.get();
+      this.items.data = dragons
         .sort((a: Dragon, b: Dragon) => a.name.localeCompare(b.name))
         .map((item: Dragon) => ({ selected: false, data: item }));
     } catch (error) {

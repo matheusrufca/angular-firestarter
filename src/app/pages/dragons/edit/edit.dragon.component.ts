@@ -104,8 +104,6 @@ export class EditDragonComponent implements OnInit {
     if (!id) return;
     this.setBusy(true);
     try {
-
-      debugger;
       this.dragon = await this.dragonService.getDetail(id);
       this.availableHistories = Array.from(new Set(this.dragon.histories.concat(AVAILABLE_STORIES)));
     } catch (error) {

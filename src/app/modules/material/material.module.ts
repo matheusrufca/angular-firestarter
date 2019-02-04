@@ -1,4 +1,4 @@
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatDividerModule, MatMenuModule, MatIconModule, MatTableModule, MatProgressSpinnerModule, MatDialogModule, MatAutocompleteModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatDividerModule, MatMenuModule, MatIconModule, MatTableModule, MatProgressSpinnerModule, MatDialogModule, MatAutocompleteModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -21,6 +21,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatAutocompleteModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatPaginatorModule,
   ],
   exports: [
     LayoutModule,
@@ -40,6 +41,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatAutocompleteModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatPaginatorModule,
   ],
 })
 export class MaterialModule { }
