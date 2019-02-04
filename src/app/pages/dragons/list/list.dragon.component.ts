@@ -10,6 +10,7 @@ const TABLE_COLLUMNS = [
   'selection',
   'name',
   'type',
+  'createdAt',
   'actions',
 ];
 
