@@ -21,7 +21,7 @@
       </div>
     </mat-card-title>
     <mat-card-content>
-      <table [hidden]="$loading" class="dragon-list-table" mat-table matSort [dataSource]="items" (matSortChange)="sortData($event)">
+      <table [hidden]="$loading" class="dragon-list-table" mat-table [dataSource]="items">
         <!-- selection column -->
         <ng-container matColumnDef="selection">
           <th mat-header-cell *matHeaderCellDef class="text-center">
@@ -61,8 +61,8 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="tableCollumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: tableCollumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
       </table>
     </mat-card-content>
     <mat-card-actions>

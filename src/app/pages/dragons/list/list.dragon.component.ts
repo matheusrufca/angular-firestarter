@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, Sort } from '@angular/material';
 import { Dragon } from "../Dragon";
 import { DragonService } from '../dragon.service';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
@@ -21,13 +21,13 @@ const TABLE_COLLUMNS = [
 })
 
 export class ListDragonComponent implements OnInit {
-  public readonly tableCollumns: string[];
+  public readonly tableColumns: string[];
   public items: DragonTableItem[] = [];
   public selectAll: boolean = false;
   public $loading: boolean = false;
 
   constructor(private readonly dragonService: DragonService, public dialog: MatDialog) {
-    this.tableCollumns = TABLE_COLLUMNS;
+    this.tableColumns = TABLE_COLLUMNS;
   }
 
   ngOnInit(): void {
@@ -75,12 +75,9 @@ export class ListDragonComponent implements OnInit {
     this.setBusy(true);
     try {
       const items = await this.dragonService.get();
-      this.items = items.map((item: Dragon) => {
-        return {
-          selected: false,
-          data: item,
-        }
-      });
+      this.items = items
+        .sort((a: Dragon, b: Dragon) => a.name.localeCompare(b.name))
+        .map((item: Dragon) => ({ selected: false, data: item }));
     } catch (error) {
       // TODO: handle error
     } finally {
