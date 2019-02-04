@@ -14,19 +14,16 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { MaterialModule } from './modules/material/material.module';
-import { NotesModule } from './notes/notes.module';
+import { MaterialModule } from './modules/material.module';
+import { EditDragonComponent } from './pages/dragons/edit/edit.dragon.component';
+import { CreateDialogComponent as CreateDragonDialogComponent } from './pages/dragons/list/create-dialog/create-dialog.component';
+import { ListDragonComponent } from './pages/dragons/list/list.dragon.component';
+import { RemoveConfirmationDialogComponent as RemoveDragonConfirmationDialogComponent } from './pages/dragons/list/remove-confirmation-dialog/remove-confirmation-dialog.component';
+import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HeaderComponent } from './ui-components/header/header.component';
 import { ButtonGoogleComponent } from './ui-components/social-login/button-google/button-google.component';
 import { SocialLoginComponent } from './ui-components/social-login/social-login.component';
-import { UiModule } from './ui/ui.module';
-import { UploadsModule } from './uploads/uploads.module';
-import { ListDragonComponent } from './pages/dragons/list/list.dragon.component';
-import { HomeComponent } from './pages/home/home.component';
-import { RemoveConfirmationDialogComponent as RemoveDragonConfirmationDialogComponent } from './pages/dragons/list/remove-confirmation-dialog/remove-confirmation-dialog.component';
-import { CreateDialogComponent as CreateDragonDialogComponent } from './pages/dragons/list/create-dialog/create-dialog.component';
-import { EditDragonComponent } from './pages/dragons/edit/edit.dragon.component';
 
 @NgModule({
   declarations: [
@@ -47,9 +44,6 @@ import { EditDragonComponent } from './pages/dragons/edit/edit.dragon.component'
     BrowserTransferStateModule,
     AppRoutingModule,
     CoreModule,
-    UiModule,
-    NotesModule,
-    UploadsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
