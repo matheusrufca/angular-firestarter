@@ -24,6 +24,16 @@ export class DragonService {
     return this.dragonMapper.fromJSON(dragon);
   }
 
+  async create(data: Partial<Dragon>): Promise<any> {
+    const result = this.apiService.post(this.ENTITY_NAME, null, data);
+    return await result.toPromise();
+  }
+
+  async edit(id: string, data: Partial<Dragon>): Promise<any> {
+    const result = this.apiService.put(this.ENTITY_NAME, id, data);
+    return await result.toPromise();
+  }
+
   async delete(id: string): Promise<any> {
     const result = this.apiService.delete(this.ENTITY_NAME, id);
     return await result.toPromise();

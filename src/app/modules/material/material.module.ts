@@ -1,4 +1,4 @@
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatDividerModule, MatMenuModule, MatIconModule, MatTableModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatDividerModule, MatMenuModule, MatIconModule, MatTableModule, MatProgressSpinnerModule, MatDialogModule, MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -18,6 +18,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatTableModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatSelectModule,
   ],
   exports: [
     LayoutModule,
@@ -34,6 +36,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatTableModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatSelectModule,
   ],
 })
 export class MaterialModule { }

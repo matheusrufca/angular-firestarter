@@ -23,24 +23,8 @@ export class LoginComponent implements OnInit {
     this.loadViewForms();
   }
 
-  private loadViewForms() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', EmailValidation],
-      password: ['', Validators.required]
-    }) as LoginForm;
-
-    this.signUpForm = this.formBuilder.group({
-      email: ['', EmailValidation],
-      password: ['', PasswordValidation],
-      confirmPassword: ['', PasswordValidation],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-    }, {
-        validator: MustMatch('password', 'confirmPassword')
-      }) as SignUpForm;
-  }
-
   ngOnInit() { }
+
 
   async login(): Promise<void> {
     if (!this.loginForm.valid) return;
@@ -114,6 +98,23 @@ export class LoginComponent implements OnInit {
       await this.auth.anonymousLogin();
       await this.redirectToHome();
     } catch (error) { }
+  }
+
+  private loadViewForms() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', EmailValidation],
+      password: ['', Validators.required]
+    }) as LoginForm;
+
+    this.signUpForm = this.formBuilder.group({
+      email: ['', EmailValidation],
+      password: ['', PasswordValidation],
+      confirmPassword: ['', PasswordValidation],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+    }, {
+        validator: MustMatch('password', 'confirmPassword')
+      }) as SignUpForm;
   }
 
   private redirectToHome(): Promise<boolean> {

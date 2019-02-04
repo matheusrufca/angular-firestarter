@@ -20,6 +20,16 @@ export class ApiService {
     return this.httpClient.get(apiEndpoint);
   }
 
+  post(entityName: string, id: string, payload?: any): Observable<any> {
+    const apiEndpoint = id ? `${this.API_URL}/${entityName}/${id}` : `${this.API_URL}/${entityName}`;
+    return this.httpClient.post(apiEndpoint, payload);
+  }
+
+  put(entityName: string, id: string, payload?: any): Observable<any> {
+    const apiEndpoint = `${this.API_URL}/${entityName}/${id}`;
+    return this.httpClient.put(apiEndpoint, payload);
+  }
+
   delete(entityName: string, id: string): Observable<any> {
     const apiEndpoint = `${this.API_URL}/${entityName}/${id}`;
     return this.httpClient.delete(apiEndpoint);
